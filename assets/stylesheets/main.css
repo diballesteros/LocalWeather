@@ -1,0 +1,28 @@
+/*
+  ========================================
+  Custom Styles
+  ========================================
+*/
+
+body {
+    font-family: 'BioRhyme Expanded', serif!important;
+    background: black;
+    color: whitesmoke;
+}
+
+p {
+    font-size:20px;
+}
+
+/*
+  ========================================
+  Link
+  ========================================
+*/
+
+.link{
+    color:lightseagreen;
+}
+.link:hover{
+    color:darkseagreen;
+}

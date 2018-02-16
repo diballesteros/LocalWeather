@@ -25,7 +25,6 @@ $(document).ready(function () {
             "&lon=" + Math.round(position.coords.longitude);
 
         $.getJSON(call, function (json) {
-            console.log(json.main.temp);
             temperature = json.main.temp;
             location.innerHTML = json.name + ", " + json.sys.country;
             weather.innerHTML = temperature;

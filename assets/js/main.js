@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     var weather = document.getElementById("weather");
 
     var location = document.getElementById("location");
@@ -20,7 +19,6 @@ $(document).ready(function () {
     /* Call the FCC weather API, get the temperature, area, country and icon that describes the weather and insert
     into respective HTML*/
     function showInfo(position) {
-
         var call = "https://fcc-weather-api.glitch.me/api/current?lat=" + Math.round(position.coords.latitude) +
             "&lon=" + Math.round(position.coords.longitude);
 
@@ -58,5 +56,4 @@ $(document).ready(function () {
 
     // Call the API upon loading the page
     getWeather();
-
 });

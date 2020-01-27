@@ -1,59 +1,60 @@
-$(document).ready(function () {
-    var weather = document.getElementById("weather");
+var weather = document.getElementById("weather");
 
-    var location = document.getElementById("location");
+var locate = document.getElementById("location");
 
-    var icon = document.getElementById("icon");
+var icon = document.getElementById("icon");
 
-    var temperature;
+var temperature;
 
-    /* Get Geolocation from the navigator */
-    function getWeather() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showInfo);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
+const apikey = c4ea91fce88970821457e7cea2c8cf29;
+
+// function getWeatherByCity(city) {
+//     fetch('api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=' + apikey).then().catch()
+// }
+
+/* Get Geolocation from the navigator */
+function getWeather() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showInfo);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
     }
+}
 
-    /* Call the FCC weather API, get the temperature, area, country and icon that describes the weather and insert
-    into respective HTML*/
-    function showInfo(position) {
-        var call = "https://fcc-weather-api.glitch.me/api/current?lat=" + Math.round(position.coords.latitude) +
-            "&lon=" + Math.round(position.coords.longitude);
+/* Call the FCC weather API, get the temperature, area, country and icon that describes the weather and insert
+into respective HTML*/
+function showInfo(position) {
+    var call = "https://fcc-weather-api.glitch.me/api/current?lat=" + Math.round(position.coords.latitude) +
+        "&lon=" + Math.round(position.coords.longitude);
 
-        $.getJSON(call, function (json) {
-            temperature = json.main.temp;
-            location.innerHTML = json.name + ", " + json.sys.country;
-            weather.innerHTML = temperature;
-            icon.innerHTML = "<img src=" + json.weather[0].icon + ">";
-        });
-
-    }
-
-    /* Upon clicking the scale (Celsius/Fahrenheit) change to other and vice versa */
-    $(document).on('click', "#scale", function () {
-        if ('C' == $(this).text()) {
-            weather.innerHTML = celsiusToFahrenheit(temperature);
-            scale.innerHTML = "F";
-        }
-        else if ('F' == $(this).text()) {
-            weather.innerHTML = fahrenheitToCelius(temperature);
-            scale.innerHTML = "C";
-        }
+    $.getJSON(call, function (json) {
+        temperature = json.main.temp;
+        locate.innerHTML = json.name + ", " + json.sys.country;
+        weather.innerHTML = temperature;
+        icon.innerHTML = "<img src=" + json.weather[0].icon + ">";
     });
 
-    /* Conversions */
-    function celsiusToFahrenheit(c) {
-        temperature = c * 1.8 + 32;
-        return temperature;
-    }
+}
 
-    function fahrenheitToCelius(f) {
-        temperature = Math.round((f - 32) * .5556)
-        return temperature;
+/* Upon clicking the scale (Celsius/Fahrenheit) change to other and vice versa */
+$(document).on('click', "#scale", function () {
+    if ('C' == $(this).text()) {
+        weather.innerHTML = celsiusToFahrenheit(temperature);
+        scale.innerHTML = "F";
     }
-
-    // Call the API upon loading the page
-    getWeather();
+    else if ('F' == $(this).text()) {
+        weather.innerHTML = fahrenheitToCelius(temperature);
+        scale.innerHTML = "C";
+    }
 });
+
+/* Conversions */
+function celsiusToFahrenheit(c) {
+    temperature = c * 1.8 + 32;
+    return temperature;
+}
+
+function fahrenheitToCelius(f) {
+    temperature = Math.round((f - 32) * .5556)
+    return temperature;
+}

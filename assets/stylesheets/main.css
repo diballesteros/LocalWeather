@@ -16,11 +16,26 @@ p {
 
 /*
   ========================================
+  Container
+  ========================================
+*/
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+  ========================================
   Link
   ========================================
 */
 
-.link{
+.link {
+    display: flex;
+    align-self: flex-end;
+    justify-self: flex-end;
     color:lightseagreen;
 }
 .link:hover{

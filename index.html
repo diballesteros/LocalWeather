@@ -1,43 +1,26 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Weather App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-        crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=BioRhyme+Expanded" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/stylesheets/main.css" />
 </head>
-
 <body>
-    <!-- Main Content -->
     <div class="container">
-        <div class="row">
-            <!-- Placeholder -->
-            <div class="col"></div>
-            <!-- Weather box-->
-            <div class="col-md-6 ">
-                <h1 class="text-center">See your Local Weather</h1>
-                <div class="weatherbox text-center">
-                    <p id="location"></p>
-                    <p>
-                        <span id="weather"></span>
-                        &deg;
-                        <span class="link" id="scale">C</span>
-                    </p>
-                    <div id="icon">
-                    </div>
-                </div>
+        <h1 class="text-center">See your Local Weather</h1>
+        <div class="weatherbox">
+            <p id="location"></p>
+            <p>
+                <span id="weather"></span>
+                <span class="link" id="scale">C</span>
+            </p>
+            <div id="icon">
             </div>
-            <!-- Placeholder -->
-            <div class="col"></div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="text-center">
+    <footer>
         by Diego Ballesteros
     </footer>
 </body>

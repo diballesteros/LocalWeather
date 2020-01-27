@@ -9,21 +9,22 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">See your Local Weather</h1>
+        <h1 class="text-center">Check out any City's Temperature</h1>
         <div class="weatherbox">
             <p id="location"></p>
-            <p>
+            <div class="temperature-container">
                 <span id="weather"></span>
                 <span class="link" id="scale">C</span>
-            </p>
-            <div id="icon">
             </div>
         </div>
+        <diV>
+            <input type="text" id="city-text">
+            <button id="search-button">Get Temperature</button>
+        </diV>
     </div>
     <footer>
         by Diego Ballesteros
     </footer>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="assets/js/main.js"></script>
 </html>

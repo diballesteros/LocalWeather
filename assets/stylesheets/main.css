@@ -14,6 +14,11 @@ p {
     font-size:20px;
 }
 
+footer {
+  text-align: center;
+  margin-top: 5px;
+}
+
 /*
   ========================================
   Container
@@ -28,6 +33,28 @@ p {
 
 /*
   ========================================
+  Weatherbox
+  ========================================
+*/
+.weatherbox {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+/*
+  ========================================
+  Temperature-Container
+  ========================================
+*/
+.temperature-container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+/*
+  ========================================
   Link
   ========================================
 */
@@ -37,6 +64,7 @@ p {
     align-self: flex-end;
     justify-self: flex-end;
     color:lightseagreen;
+    cursor: pointer;
 }
 .link:hover{
     color:darkseagreen;

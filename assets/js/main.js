@@ -1,60 +1,91 @@
-var weather = document.getElementById("weather");
+const apikey = 'c4ea91fce88970821457e7cea2c8cf29';
 
-var locate = document.getElementById("location");
+let temperature;
 
-var icon = document.getElementById("icon");
+let isCelsius = true;
 
-var temperature;
+document.getElementById('scale').addEventListener('click', toggleScale);
 
-const apikey = c4ea91fce88970821457e7cea2c8cf29;
-
-// function getWeatherByCity(city) {
-//     fetch('api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=' + apikey).then().catch()
-// }
+document.getElementById('search-button').addEventListener('click', extractCity);
 
 /* Get Geolocation from the navigator */
-function getWeather() {
+function validateNavGeolocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showInfo);
+        navigator.geolocation.getCurrentPosition(function (response) {
+            getWeatherByLocation(Math.round(response.coords.latitude), Math.round(response.coords.longitude));
+        });
     } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
+        window.alert('Geolocation is not supported by this browser.');
     }
+};
+
+function getWeatherByCity(city) {
+    fetch('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=' + apikey, { mode: 'cors' })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            setWeatherDOM(convertFromKelvin(data.main.temp), data.name, data.sys.country);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
+
+function getWeatherByLocation(lat, lon) {
+    fetch('http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=' + apikey, { mode: 'cors' })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            setWeatherDOM(convertFromKelvin(data.main.temp), data.name, data.sys.country);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
-/* Call the FCC weather API, get the temperature, area, country and icon that describes the weather and insert
-into respective HTML*/
-function showInfo(position) {
-    var call = "https://fcc-weather-api.glitch.me/api/current?lat=" + Math.round(position.coords.latitude) +
-        "&lon=" + Math.round(position.coords.longitude);
+function setWeatherDOM(temp, city, country) {
+    temperature = temp;
+    document.getElementById("location").innerHTML = city + ", " + country;
+    document.getElementById("weather").innerHTML = temperature;
+};
 
-    $.getJSON(call, function (json) {
-        temperature = json.main.temp;
-        locate.innerHTML = json.name + ", " + json.sys.country;
-        weather.innerHTML = temperature;
-        icon.innerHTML = "<img src=" + json.weather[0].icon + ">";
-    });
-
+function extractCity() {
+    getWeatherByCity(document.getElementById('city-text').value);
 }
 
-/* Upon clicking the scale (Celsius/Fahrenheit) change to other and vice versa */
-$(document).on('click', "#scale", function () {
-    if ('C' == $(this).text()) {
-        weather.innerHTML = celsiusToFahrenheit(temperature);
-        scale.innerHTML = "F";
+/* Upon clicking the scale (Celsius/Fahrenheit) change to the other and vice versa */
+function toggleScale() {
+    if (isCelsius) {
+        document.getElementById("weather").innerHTML = celsiusToFahrenheit(temperature);
+        document.getElementById('scale').innerHTML = "F";
+        isCelsius = false;
     }
-    else if ('F' == $(this).text()) {
-        weather.innerHTML = fahrenheitToCelius(temperature);
-        scale.innerHTML = "C";
+    else {
+        document.getElementById("weather").innerHTML = fahrenheitToCelius(temperature);
+        document.getElementById('scale').innerHTML = "C";
+        isCelsius = true;
     }
-});
+};
 
 /* Conversions */
 function celsiusToFahrenheit(c) {
     temperature = c * 1.8 + 32;
     return temperature;
-}
+};
 
 function fahrenheitToCelius(f) {
     temperature = Math.round((f - 32) * .5556)
     return temperature;
+};
+
+function convertFromKelvin(temp) {
+    if (isCelsius === true) {
+        return Math.round(temp - 273.15);
+    } else {
+        return Math.round(((temp - 273.15) * 1.8) + 32);
+    }
 }
+
+validateNavGeolocation();
